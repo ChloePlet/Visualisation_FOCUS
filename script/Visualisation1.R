@@ -80,9 +80,23 @@ ggplot(gapminder_byContinent,
            colour=continent))+
   geom_point(shape="triangle",size=3)
 
+#change to line
+ggplot(gapminder,
+       aes(x=year,
+           y=lifeExp, 
+           group=country,
+           colour= continent,
+           size=pop))+
+   geom_point(colour="black")+
+   geom_line()  
 
 
+#transformation and statistics
 
-
-
+ggplot(gapminder,
+       mapping= aes(x= gdpPercap, 
+                    y= lifeExp))+
+  geom_point(alpha=0.3)+
+  scale_x_log10() +
+  geom_smooth(method="lm",size=2)
 
