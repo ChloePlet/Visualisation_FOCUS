@@ -74,7 +74,7 @@ gapminder_byContinent<-gapminder%>%
   summarise(mean_lifeExp=mean(lifeExp))
 
 
-ggplot(gapminder_byContinent,
+best_plot<-ggplot(gapminder_byContinent,
        aes(x=year,
            y=mean_lifeExp, 
            colour=continent))+
@@ -89,6 +89,8 @@ ggplot(gapminder,
            size=pop))+
    geom_point(colour="black")+
    geom_line()  
+
+ggsave("figure/my_best_plot.png", plot=best_plot, width = 12, height = 10, units= "cm", dpi = 300)
 
 
 #transformation and statistics
@@ -176,6 +178,58 @@ ggplot(gapminder, aes(x=gdpPercap, y=lifeExp,
   scale_x_log10()+
   scale_colour_brewer(palette= "YlGnBu")
 
+#split the the dataset into multiple plots with the same aesthetics
+
+a_countries<-gapminder %>% 
+  filter(str_starts(country, "A"))
+
+ggplot(a_countries,
+       mapping= aes(x=year,
+                    y= lifeExp,
+                    colour=continent,
+                    group=country))+
+  geom_line()+
+  facet_wrap(~country)
+
+ggplot(data = gapminder_1977,
+        aes(x=gdpPercap,
+                     y = lifeExp,
+                     colour = continent,
+                     size = pop,
+                     label = country)) + 
+  geom_point() + 
+  scale_x_log10()+
+  facet_wrap(~year)+
+  geom_text(data=gapminder_rich)
 
 
 
+gapminder_rich<-filter(gapminder_1977, gdpPercap>30000) 
+                       
+rough_plot<-ggplot(
+  data=a_countries,
+  mapping= aes(x=year,y=lifeExp,
+               colour= continent, group=country))+
+  geom_line()+
+  facet_wrap(~country)
+
+rough_plot + scale_color_brewer(palette = "Dark2")
+                       
+rough_plot + labs(title= "Life expectancy over time for 'A' countries",
+                  caption= "Data from gapminder",
+                  x= "Year",
+                  y= "Life expectancy", 
+                  colour= "Continent")+
+  theme(
+    panel.grid.major = element_blank(),
+    plot.title = element_text(size=4),
+    axis.line = element_line(colour="blue", size = 4))
+
+ggsave("figure/my_first_plot.png", plot= rough_plot)                       
+                       
+                       
+                       
+                       
+                       
+                       
+            
