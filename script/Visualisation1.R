@@ -100,3 +100,82 @@ ggplot(gapminder,
   scale_x_log10() +
   geom_smooth(method="lm",size=2)
 
+ggplot(gapminder,
+       mapping= aes(x= gdpPercap, 
+                    y= lifeExp,
+                    colour=continent))+
+  geom_point(alpha=0.3)+
+  scale_x_log10() 
+
+#equivalent to
+
+ggplot(gapminder,
+       mapping = aes(x=gdpPercap,
+                     y=lifeExp))+
+  geom_point(aes(colour=continent), alpha=0.8)+
+  scale_x_log10()
+
+
+#choose colour manually
+ggplot(gapminder,
+       mapping = aes(x=gdpPercap,
+                     y=lifeExp))+
+  geom_point(aes(colour=continent), alpha=0.8)+
+  scale_x_log10()+
+  scale_colour_manual(values = c("red", "green","pink", "blue", "yellow"))
+
+#challenge 9
+
+ggplot(gapminder,
+       mapping = aes(x=gdpPercap,
+                     y=lifeExp))+
+  geom_point(colour= "orange", size= 6, alpha=0.8)+
+  scale_x_log10()
+
+
+#challenge 10
+
+ggplot(gapminder,
+       mapping = aes(x=gdpPercap,
+                     y=lifeExp,
+                     colour=continent))+
+  geom_point(shape= "square", size= 2, alpha=0.8)+
+  scale_x_log10()+
+  geom_smooth(method='lm', size=2, se= FALSE) 
+
+#challenge 11
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() + 
+  scale_x_log10() +
+  scale_colour_manual(values = c("red", "green", "blue", "purple", "black"))
+
+colours()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() + 
+  scale_x_log10() +
+  scale_colour_manual(values = c("salmon4", "turquoise3", "slategray", "navy", "green"))
+
+ggplot(gapminder, aes(x=gdpPercap, y=lifeExp,
+                      colour=continent,
+                      shape=continent))+
+         geom_point()+
+         scale_x_log10()+
+         geom_smooth(method='lm', size=1.5)
+
+ggplot(gapminder, aes(x=gdpPercap, y=lifeExp,
+                    colour=continent,
+                    shape=continent))+ geom_point(size=4)+
+  scale_x_log10()+
+  scale_shape_manual(values=c(7,8,3,10,18))
+
+ggplot(gapminder, aes(x=gdpPercap, y=lifeExp,
+                      colour=continent,
+                      shape=continent))+ geom_point(size=4)+
+  scale_x_log10()+
+  scale_colour_brewer(palette= "YlGnBu")
+
+
+
+
